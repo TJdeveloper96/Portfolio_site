@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My portfolio site</title>
+  <link rel="stylesheet" href="css/site.css" />
+  <script src="Javascript/script.js" defer></script>
+</head>
+
+<body>
+  <!--header-->
+  <section id="home" class="hero" aria-label="Home">
+    <div class="scene" id="hero" aria-label="Interactive desk scene">
+      <img class="scene__img" src="./images/desk.png" alt="Desk flatlay" />
+
+      <svg class="scene__map" viewBox="0 0 458 594" preserveAspectRatio="none">
+        <defs>
+          <radialGradient id="aura" cx="50%" cy="50%" r="70%">
+            <stop offset="0%" stop-color="rgba(255,140,200,0.55)"/>
+            <stop offset="50%" stop-color="rgba(120,180,255,0.35)"/>
+            <stop offset="100%" stop-color="rgba(255,220,140,0.0)"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Coffee = Home / Welcome Goodmorning -->
+        <a class="hotspot" href="#home" data-label="Good morning">
+          <circle cx="235" cy="150" r="55"></circle>
+        </a>
+
+        <!-- Keyboard/hands = About -->
+        <a class="hotspot" href="#about" data-label="About me">
+          <rect x="35" y="220" width="390" height="290" rx="28"></rect>
+        </a>
+
+        <!-- Notebook/croissant = CV -->
+        <a class="hotspot" href="#cv" data-label="CV">
+          <rect x="290" y="85" width="160" height="185" rx="22"></rect>
+        </a>
+
+        <!-- Clock/domino area = Work -->
+        <a class="hotspot" href="#work" data-label="Work">
+          <rect x="0" y="0" width="260" height="135" rx="22"></rect>
+        </a>
+      </svg>
+
+      <div class="cursor" aria-hidden="true">
+        <div class="cursor__bubble"><span class="cursor__label"></span></div>
+      </div>
+    </div>
+  </section>
+
+ <!--WIP-->
+  <section id="about" class="page">
+    <h2>About</h2>
+  </section>
+
+  <section id="cv" class="page">
+    <h2>CV</h2>
+  </section>
+
+  <section id="work" class="page">
+    <h2>Work</h2>
+  </section>
+</body>
+</html>
