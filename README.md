@@ -1,4 +1,4 @@
-# Portfolio Desk Scene
+Portfolio Desk Scene with hotspot + mobile friendly responsive site
 
 Interactive single-page portfolio with:
 - Desktop SVG hotspots (`Home`, `About`, `CV`, `Work`)
@@ -6,7 +6,7 @@ Interactive single-page portfolio with:
 - Mobile CTA buttons for touch devices
 - Template-driven popup modal content (easy to edit in `index.html`)
 
-## Files
+Files
 - `index.html`: scene, hotspots, popup templates
 - `css/site.css`: layout, hotspot/cursor effects, responsive styles
 - `Javascript/script.js`: cursor animation, hotspot interactions, popup logic

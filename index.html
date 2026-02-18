@@ -4,63 +4,98 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My portfolio site</title>
-  <link rel="stylesheet" href="css/site.css" />
-  <script src="Javascript/script.js" defer></script>
+  <link rel="stylesheet" href="./css/site.css" />
+<script src="./Javascript/script.js" defer></script>
 </head>
 
 <body>
-  <!--header-->
+  <!-- HEADER -->
   <section id="home" class="hero" aria-label="Home">
+    <!-- SCENE -->
     <div class="scene" id="hero" aria-label="Interactive desk scene">
-      <img class="scene__img" src="./images/desk.png" alt="Desk flatlay" />
+      <picture>
+        <source media="(max-width: 1024px)" srcset="./images/desk_mobile.png"/>
+        <img class="scene__img" src="./images/desk.png" alt="Desk flatlay" />
+      </picture>
 
-      <svg class="scene__map" viewBox="0 0 458 594" preserveAspectRatio="none">
+      <!-- SCENE MAP / HOTSPOTS (DESKTOP) -->
+      <svg class="scene__map scene__map--desktop" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYmid slice">
         <defs>
-          <radialGradient id="aura" cx="50%" cy="50%" r="70%">
+          <radialGradient id="aura-desktop" cx="50%" cy="50%" r="70%">
             <stop offset="0%" stop-color="rgba(255,140,200,0.55)"/>
             <stop offset="50%" stop-color="rgba(120,180,255,0.35)"/>
             <stop offset="100%" stop-color="rgba(255,220,140,0.0)"/>
           </radialGradient>
         </defs>
 
-        <!-- Coffee = Home / Welcome Goodmorning -->
-        <a class="hotspot" href="#home" data-label="Good morning">
-          <circle cx="235" cy="150" r="55"></circle>
+        <!-- Home -->
+        <a class="hotspot hotspot--desktop" href="#home" data-label="Good morning" data-modal="home">
+          <circle cx="1020" cy="270" r="210"></circle>
         </a>
 
-        <!-- Keyboard/hands = About -->
-        <a class="hotspot" href="#about" data-label="About me">
-          <rect x="35" y="220" width="390" height="290" rx="28"></rect>
+        <!-- About -->
+        <a class="hotspot hotspot--desktop" href="#about" data-label="About me" data-modal="about">
+          <circle cx="660" cy="600" r="240"></circle>
         </a>
 
-        <!-- Notebook/croissant = CV -->
-        <a class="hotspot" href="#cv" data-label="CV">
-          <rect x="290" y="85" width="160" height="185" rx="22"></rect>
+        <!-- CV -->
+        <a class="hotspot hotspot--desktop" href="#cv" data-label="CV" data-modal="cv">
+          <circle cx="1600" cy="600" r="280"></circle>
         </a>
 
-        <!-- Clock/domino area = Work -->
-        <a class="hotspot" href="#work" data-label="Work">
-          <rect x="0" y="0" width="260" height="135" rx="22"></rect>
+        <!-- Work -->
+        <a class="hotspot hotspot--desktop" href="#work" data-label="Work" data-modal="work">
+          <circle cx="250" cy="220" r="220"></circle>
         </a>
       </svg>
 
-      <div class="cursor" aria-hidden="true">
-        <div class="cursor__bubble"><span class="cursor__label"></span></div>
-      </div>
+      <!-- MOBILE CTA (OVER IMAGE) -->
+      <nav class="mobile-cta" aria-label="Snelle navigatie">
+        <p class="mobile-cta__hint">Tik voor meer info</p>
+        <div class="mobile-cta__row">
+          <button class="mobile-cta__btn" type="button" data-modal="about">About</button>
+          <button class="mobile-cta__btn" type="button" data-modal="cv">CV</button>
+          <button class="mobile-cta__btn" type="button" data-modal="work">Work</button>
+        </div>
+      </nav>
+
+      <!-- CURSOR EFFECT -->
+<div class="cursor" aria-hidden="true">
+  <div class="cursor__outer"></div>
+  <div class="cursor__inner"></div>
+  <div class="cursor__label"></div>
+</div>
+</div>
+  </section>
+
+  <!-- POP-UPS -->
+  <div class="popup" id="popup" hidden>
+    <div class="popup__backdrop" data-close-popup></div>
+    <div class="popup__card" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+      <button class="popup__close" type="button" data-close-popup aria-label="Close popup">Close</button>
+      <h2 id="popup-title"></h2>
+      <div id="popup-content" class="popup__content"></div>
     </div>
-  </section>
+  </div>
 
- <!--WIP-->
-  <section id="about" class="page">
-    <h2>About</h2>
-  </section>
+  <template id="modal-home" data-title="Good morning">
+    <p>Welcome to my portfolio site, feel free to explore around :)</p>
+  </template>
 
-  <section id="cv" class="page">
-    <h2>CV</h2>
-  </section>
+  <template id="modal-about" data-title="About me">
+    <p>Short intro about who I am and what I do.</p>
+  </template>
 
-  <section id="work" class="page">
-    <h2>Work</h2>
-  </section>
+  <template id="modal-cv" data-title="CV">
+    <p>My experience, studies, and key skills.</p>
+    <p>CV PDF link: add your final file URL here.</p>
+  </template>
+
+  <template id="modal-work" data-title="Work">
+    <div class="popup-grid">
+      <img src="./images/desk_mobile.png" alt="Work preview">
+      <img src="./images/desk.png" alt="Work preview detail">
+    </div>
+  </template>
 </body>
 </html>
