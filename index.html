@@ -1,3 +1,8 @@
+<!-- https://codepen.io/cameronknight/pen/ogxWmBP -->
+ <!-- https://monopo.london -->
+  <!-- https://www.youtube.com/watch?v=ig1ktjed6Yg-->
+   <!--builders.io-->
+
 <!doctype html>
 <html lang="nl">
 <head>
@@ -5,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My portfolio site</title>
   <link rel="stylesheet" href="./css/site.css" />
-<script src="./Javascript/script.js" defer></script>
+  <script src="./Javascript/script.js" defer></script>
 </head>
 
 <body>
@@ -14,9 +19,28 @@
     <!-- SCENE -->
     <div class="scene" id="hero" aria-label="Interactive desk scene">
       <picture>
-        <source media="(max-width: 1024px)" srcset="./images/desk_mobile.png"/>
-        <img class="scene__img" src="./images/desk.png" alt="Desk flatlay" />
+        <source media="(max-width: 1024px)" srcset="./images/desk_empty.webp"/>
+        <img class="scene__img" src="./images/desk_empty.webp" alt="Desk flatlay" />
       </picture>
+
+      <figure
+        class="scene-about-animation"
+        data-scene-about-animation
+        data-frame-ms="170"
+        aria-hidden="true"
+      >
+        <img
+          class="scene-about-animation__hands"
+          src="./images/hand 1.webp"
+          alt=""
+          data-scene-about-frame
+        />
+        <img
+          class="scene-about-animation__sleeve"
+          src="./images/Mouw.webp"
+          alt=""
+        />
+      </figure>
 
       <!-- SCENE MAP / HOTSPOTS (DESKTOP) -->
       <svg class="scene__map scene__map--desktop" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYmid slice">
@@ -29,22 +53,22 @@
         </defs>
 
         <!-- Home -->
-        <a class="hotspot hotspot--desktop" href="#home" data-label="Good morning" data-modal="home">
+        <a class="hotspot hotspot--desktop" href="#home" data-label="Good morning" data-title="Good morning" data-modal="home">
           <circle cx="1020" cy="270" r="210"></circle>
         </a>
 
         <!-- About -->
-        <a class="hotspot hotspot--desktop" href="#about" data-label="About me" data-modal="about">
+        <a class="hotspot hotspot--desktop" href="#about" data-label="About me" data-title="About me" data-modal="about">
           <circle cx="660" cy="600" r="240"></circle>
         </a>
 
         <!-- CV -->
-        <a class="hotspot hotspot--desktop" href="#cv" data-label="CV" data-modal="cv">
+        <a class="hotspot hotspot--desktop" href="#cv" data-label="CV" data-title="CV" data-modal="cv">
           <circle cx="1600" cy="600" r="280"></circle>
         </a>
 
         <!-- Work -->
-        <a class="hotspot hotspot--desktop" href="#work" data-label="Work" data-modal="work">
+        <a class="hotspot hotspot--desktop" href="#work" data-label="Work" data-title="Work" data-modal="work">
           <circle cx="250" cy="220" r="220"></circle>
         </a>
       </svg>
@@ -53,9 +77,9 @@
       <nav class="mobile-cta" aria-label="Snelle navigatie">
         <p class="mobile-cta__hint">Tik voor meer info</p>
         <div class="mobile-cta__row">
-          <button class="mobile-cta__btn" type="button" data-modal="about">About</button>
-          <button class="mobile-cta__btn" type="button" data-modal="cv">CV</button>
-          <button class="mobile-cta__btn" type="button" data-modal="work">Work</button>
+          <button class="mobile-cta__btn" type="button" data-modal="about" data-title="About me">About</button>
+          <button class="mobile-cta__btn" type="button" data-modal="cv" data-title="CV">CV</button>
+          <button class="mobile-cta__btn" type="button" data-modal="work" data-title="Work">Work</button>
         </div>
       </nav>
 
@@ -78,24 +102,5 @@
     </div>
   </div>
 
-  <template id="modal-home" data-title="Good morning">
-    <p>Welcome to my portfolio site, feel free to explore around :)</p>
-  </template>
-
-  <template id="modal-about" data-title="About me">
-    <p>Short intro about who I am and what I do.</p>
-  </template>
-
-  <template id="modal-cv" data-title="CV">
-    <p>My experience, studies, and key skills.</p>
-    <p>CV PDF link: add your final file URL here.</p>
-  </template>
-
-  <template id="modal-work" data-title="Work">
-    <div class="popup-grid">
-      <img src="./images/desk_mobile.png" alt="Work preview">
-      <img src="./images/desk.png" alt="Work preview detail">
-    </div>
-  </template>
 </body>
 </html>

@@ -39,8 +39,37 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center bottom;
   border-radius: inherit;
+}
+
+.scene > picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.scene-about-animation {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.scene-about-animation__hands,
+.scene-about-animation__sleeve {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  position: absolute;
+  inset: 0;
+}
+
+.scene-about-animation__hands {
+  opacity: 1;
 }
 
 /* SCENE MAP + HOTSPOT EFFECT */
@@ -291,6 +320,19 @@ body {
     cursor: auto;
     border-width: 1px;
     border-radius: 14px;
+  }
+
+  .scene__img,
+  .scene-about-animation__hands,
+  .scene-about-animation__sleeve {
+    object-fit: cover;
+    object-position: center bottom;
+  }
+
+  .scene-about-animation__sleeve {
+    object-position: center 95%;
+    transform-origin: center bottom;
+    transform: scale(1.08);
   }
 
   .popup__card {

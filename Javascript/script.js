@@ -11,6 +11,13 @@ const popupTitle = document.getElementById("popup-title");
 const popupContent = document.getElementById("popup-content");
 const closeControls = document.querySelectorAll("[data-close-popup]");
 const mobileCtaButtons = document.querySelectorAll(".mobile-cta__btn");
+const mobileAboutButton = document.querySelector('.mobile-cta__btn[data-modal="about"]');
+const aboutHotspot = document.querySelector('.hotspot[data-modal="about"]');
+const sceneAboutAnimation = document.querySelector("[data-scene-about-animation]");
+const sceneAboutFrame = document.querySelector("[data-scene-about-frame]");
+let sceneAboutFrameTimer = null;
+let stopSceneAboutAnimation = () => {};
+let playSceneAboutAnimationOnce = () => {};
 
 // =======================
 // CURSOR STATE
@@ -58,6 +65,7 @@ function hideCursor() {
 
   if (activeHotspot) setHotspotOffset(activeHotspot, 0, 0);
   activeHotspot = null;
+  stopSceneAboutAnimation();
 }
 
 // =======================
@@ -96,20 +104,36 @@ hotspots.forEach((el) => {
   el.addEventListener("click", (event) => {
     // If you're using popups instead of page scroll:
     event.preventDefault();
-    openPopup(el.dataset.modal, el.dataset.label);
+    openPopup(el.dataset.modal, el.dataset.title || el.dataset.label);
   });
 });
+
+initSceneAboutAnimation();
 
 // =======================
 // POP-UP LOGIC
 // =======================
-function openPopup(target, fallbackTitle = "") {
-  const tpl = document.getElementById(`modal-${target}`);
-  if (!popup || !popupTitle || !popupContent || !tpl) return;
+async function openPopup(target, fallbackTitle = "") {
+  if (!popup || !popupTitle || !popupContent || !target) return;
+  stopSceneAboutAnimation();
 
-  popupTitle.textContent = tpl.dataset.title || fallbackTitle || target;
-  popupContent.replaceChildren(tpl.content.cloneNode(true));
-  popup.hidden = false;
+  const fileTitle = fallbackTitle || target;
+  const popupPath = `./popups/${target}.html`;
+
+  try {
+    const response = await fetch(popupPath);
+    if (!response.ok) throw new Error(`Failed to fetch ${popupPath}`);
+
+    const html = await response.text();
+    popupTitle.textContent = fileTitle;
+    popupContent.innerHTML = html;
+    popup.hidden = false;
+    return;
+  } catch (error) {
+    popupTitle.textContent = fileTitle;
+    popupContent.innerHTML = `<p>Could not load popup content from <code>${popupPath}</code>.</p>`;
+    popup.hidden = false;
+  }
 }
 
 function closePopup() {
@@ -119,12 +143,73 @@ function closePopup() {
   if (popupTitle) popupTitle.textContent = "";
 }
 
+function initSceneAboutAnimation() {
+  if (!aboutHotspot || !sceneAboutAnimation || !sceneAboutFrame) return;
+
+  const frameMs = Number(sceneAboutAnimation.dataset.frameMs) || 170;
+  const idleFrame = "./images/hand 1.webp";
+  const hoverFrames = ["./images/hand 2.webp", "./images/hand 3.webp"];
+
+  [idleFrame, ...hoverFrames].forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  let index = 0;
+
+  function stopHeaderAnimation() {
+    if (sceneAboutFrameTimer) {
+      clearInterval(sceneAboutFrameTimer);
+      sceneAboutFrameTimer = null;
+    }
+    sceneAboutFrame.src = idleFrame;
+    sceneAboutFrame.style.opacity = "1";
+    index = 0;
+  }
+
+  function startHeaderAnimation() {
+    if (sceneAboutFrameTimer) return;
+    sceneAboutFrame.style.opacity = "1";
+    sceneAboutFrame.src = hoverFrames[index];
+    sceneAboutFrameTimer = setInterval(() => {
+      index = (index + 1) % hoverFrames.length;
+      sceneAboutFrame.src = hoverFrames[index];
+    }, frameMs);
+  }
+
+  let mobileStopTimer = null;
+  function startHeaderAnimationOnceMobile() {
+    startHeaderAnimation();
+    if (mobileStopTimer) clearTimeout(mobileStopTimer);
+    mobileStopTimer = setTimeout(() => {
+      stopHeaderAnimation();
+      mobileStopTimer = null;
+    }, 900);
+  }
+
+  stopSceneAboutAnimation = stopHeaderAnimation;
+  playSceneAboutAnimationOnce = startHeaderAnimationOnceMobile;
+  stopHeaderAnimation();
+  aboutHotspot.addEventListener("mouseenter", startHeaderAnimation);
+  aboutHotspot.addEventListener("mouseleave", stopHeaderAnimation);
+}
+
+// Mobile has no hover: play animation when "About" is tapped.
+if (mobileAboutButton && window.matchMedia("(pointer: coarse)").matches) {
+  mobileAboutButton.addEventListener("touchstart", () => {
+    playSceneAboutAnimationOnce();
+  }, { passive: true });
+  mobileAboutButton.addEventListener("click", () => {
+    playSceneAboutAnimationOnce();
+  });
+}
+
 // =======================
 // MOBILE CTA -> POP-UP
 // =======================
 mobileCtaButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    openPopup(button.dataset.modal, button.textContent?.trim());
+    openPopup(button.dataset.modal, button.dataset.title || button.textContent?.trim());
   });
 });
 
