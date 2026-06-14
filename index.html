@@ -1,27 +1,47 @@
-<!-- https://codepen.io/cameronknight/pen/ogxWmBP -->
- <!-- https://monopo.london -->
-  <!-- https://www.youtube.com/watch?v=ig1ktjed6Yg-->
-   <!--builders.io-->
-
 <!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My portfolio site</title>
-  <link rel="stylesheet" href="./css/site.css" />
-  <script src="./Javascript/script.js" defer></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mijn portfolio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+<link rel="stylesheet" href="./css/site.css"/>
+<script src="./Javascript/script.js?v=3" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+  <!--Loading screen-->
+  <div id="loading-screen">
+    <div id="loader-lottie" aria-hidden="true"></div>
+  </div>
+
   <!-- HEADER -->
-  <section id="home" class="hero" aria-label="Home">
+  <section id="home" class="hero" aria-label="Start">
     <!-- SCENE -->
-    <div class="scene" id="hero" aria-label="Interactive desk scene">
+    <div class="scene" id="hero" aria-label="Interactieve bureauscene">
       <picture>
-        <source media="(max-width: 1024px)" srcset="./images/desk_empty.webp"/>
-        <img class="scene__img" src="./images/desk_empty.webp" alt="Desk flatlay" />
+        <source media="(min-width: 1921px)" srcset="./images/desk_03_1920_big.png"/>
+        <source media="(max-width: 844px)" srcset="./images/desk_mobile%20version.png"/>
+        <img class="scene__img" src="./images/desk_empty.webp" alt="Bureau van bovenaf" />
       </picture>
+
+      <figure
+        class="scene-home-animation"
+        data-scene-home-animation
+        data-frame-ms="180"
+        aria-hidden="true"
+      >
+        <img
+          class="scene-home-animation__coffee"
+          src="./images/koffie%201.webp"
+          alt=""
+          data-scene-home-frame
+        />
+      </figure>
 
       <figure
         class="scene-about-animation"
@@ -53,13 +73,13 @@
         </defs>
 
         <!-- Home -->
-        <a class="hotspot hotspot--desktop" href="#home" data-label="Good morning" data-title="Good morning" data-modal="home">
+        <a class="hotspot hotspot--desktop" href="#home" data-label="Goedemorgen" data-title="Goedemorgen" data-modal="home">
           <circle cx="1020" cy="270" r="210"></circle>
         </a>
 
         <!-- About -->
-        <a class="hotspot hotspot--desktop" href="#about" data-label="About me" data-title="About me" data-modal="about">
-          <circle cx="660" cy="600" r="240"></circle>
+        <a class="hotspot hotspot--desktop" href="#about" data-label="Over mij" data-title="Over mij" data-modal="about">
+          <circle cx="660" cy="600" r="300"></circle>
         </a>
 
         <!-- CV -->
@@ -68,8 +88,8 @@
         </a>
 
         <!-- Work -->
-        <a class="hotspot hotspot--desktop" href="#work" data-label="Work" data-title="Work" data-modal="work">
-          <circle cx="250" cy="220" r="220"></circle>
+        <a class="hotspot hotspot--desktop" href="#work" data-label="Werk" data-title="Werk" data-modal="work">
+          <circle cx="270" cy="250" r="250"></circle>
         </a>
       </svg>
 
@@ -77,9 +97,9 @@
       <nav class="mobile-cta" aria-label="Snelle navigatie">
         <p class="mobile-cta__hint">Tik voor meer info</p>
         <div class="mobile-cta__row">
-          <button class="mobile-cta__btn" type="button" data-modal="about" data-title="About me">About</button>
+          <button class="mobile-cta__btn" type="button" data-modal="about" data-title="Over mij">Over mij</button>
           <button class="mobile-cta__btn" type="button" data-modal="cv" data-title="CV">CV</button>
-          <button class="mobile-cta__btn" type="button" data-modal="work" data-title="Work">Work</button>
+          <button class="mobile-cta__btn" type="button" data-modal="work" data-title="Werk">Werk</button>
         </div>
       </nav>
 
@@ -95,9 +115,8 @@
   <!-- POP-UPS -->
   <div class="popup" id="popup" hidden>
     <div class="popup__backdrop" data-close-popup></div>
-    <div class="popup__card" role="dialog" aria-modal="true" aria-labelledby="popup-title">
-      <button class="popup__close" type="button" data-close-popup aria-label="Close popup">Close</button>
-      <h2 id="popup-title"></h2>
+    <div class="popup__card" role="dialog" aria-modal="true" aria-label="Popup">
+      <button class="popup__close" type="button" data-close-popup aria-label="Sluit popup">Sluiten</button>
       <div id="popup-content" class="popup__content"></div>
     </div>
   </div>

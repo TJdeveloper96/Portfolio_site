@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Modak&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../portfolio-return.css?v=3">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
+    </head>
+<body>
+    <nav class="portfolio-return" aria-label="Portfolio-navigatie">
+        <a class="portfolio-return__link" href="../../index.html">
+            <span class="portfolio-return__icon" aria-hidden="true">&larr;</span>
+            Terug naar portfolio
+        </a>
+    </nav>
+    <div class="navbar">
+        <ul>
+            <li><a href="index.html">Start</a></li>
+            <li><a href="about.html">Over ons</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+                <a class="cart-link" href="in%20your%20card.html" aria-label="Open winkelwagen">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-count">0</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <main class="cart-page">
+        <section class="cart" id="cart">
+            <h2>In je winkelwagen</h2>
+            <p class="cart-empty">Je winkelwagen is leeg.</p>
+            <ul class="cart-list"></ul>
+            <p class="cart-total">Totaal: €0.00</p>
+        </section>
+    </main>
+
+    <script src="scriptCart.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+  <!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="stylesheet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=discover_tune" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit_audio"/>
+<title>Audio-bediening app</title>
+<script src="app.js?v=2" defer></script> 
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Ga naar hoofdinhoud</a>
+  <div class="card-wrapper">
+<header>
+     <div class="card-image">
+    
+    <div class="card-intro">
+  </div>
+</div>
+</header>
+
+<main id="main">
+  <div class="card-parent">  
+    <img src="../Image/Hero_img.png" alt="Hero-afbeelding voor audio-bediening">
+    <div class="icon-circle">
+    <img src="../Image/discover_tune_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" id="icons" alt="Icoon voor audio-instellingen">
+    </div>
+    <h1>HEAR EAR app</h1>
+    <div class="card-wrapper">
+<!-- Main volume -->
+<div class="card" id="volume">
+  <h2>Hoofdvolume</h2>
+      <div class="slider-cont">
+      <div class="slider">
+      <input type="range" min="0" max="100" value="50" class="slider-input" aria-label="Volumeschuifregelaar" aria-describedby="volume-value">
+      </div>
+      <div class="slider-value" id="volume-value">50</div>
+  </div>
+</div>
+<!-- Voices-->
+      <div class="card" id="sound">
+        <h2>Stemmen</h2>
+        <!-- speech clarity and background noise -->
+        <label for="speech-clarity">Spraakhelderheid</label>
+        <div class="slider-cont">
+          <div class="slider">
+            <input id="speech-clarity" type="range" min="0" max="100" value="50" class="slider-input" aria-describedby="speech-clarity-value">
+          </div>
+          <div class="slider-value" id="speech-clarity-value">50</div>
+<!-- background noise-->
+        <label for="background-noise">Achtergrondgeluid</label>
+        <div class="slider-cont">
+          <div class="slider">
+            <input id="background-noise" type="range" min="0" max="100" value="50" class="slider-input" aria-describedby="background-noise-value">
+          </div>
+          <div class="slider-value" id="background-noise-value">50</div>
+        </div>
+      </div>
+</div>
+<!-- environment -->
+      <div class="card" id="environment">
+        <h2>Omgeving</h2>
+        <label for="streaming-environment">
+          Omgeving <img src="../Image/edit_audio_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" id="icons-small" alt="" aria-hidden="true"> Streaming
+        </label>
+        <div class="slider-cont">
+          <div class="slider">
+            <input id="streaming-environment" type="range" min="0" max="100" value="50" class="slider-input" aria-describedby="streaming-env-value">
+          </div>
+          <div class="slider-value" id="streaming-env-value">50</div>
+        </div>
+        <div class="slidecontainer">
+</div>
+<!-- wind sounds -->
+        <p> Verminder windgeluiden</p>
+             <div class="slider-cont">
+          <div class="slider">
+          <input type="range" min="0" max="100" value="50" class="slider-input" aria-label="Schuifregelaar voor windruisonderdrukking" aria-describedby="wind-noise-value">
+          </div>
+          <div class="slider-value" id="wind-noise-value">50</div>
+<!-- traffic sounds -->
+        <p> Verminder auto- en verkeersgeluiden</p>
+             <div class="slider-cont">
+          <div class="slider">
+          <input type="range" min="0" max="100" value="50" class="slider-input" aria-label="Schuifregelaar voor verkeersruisonderdrukking" aria-describedby="traffic-noise-value">
+          </div>
+          <div class="slider-value" id="traffic-noise-value">50</div>
+        
+      </div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

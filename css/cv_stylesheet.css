@@ -1,0 +1,84 @@
+  .about-section {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    color: #ffffff;
+  }
+
+  .about-intro {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .about-intro h1 {
+    font-size: 2.5rem;
+    color: #4e205a;
+    margin-bottom: 10px;
+  }
+
+  .about-intro .subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+  }
+.goodday-card {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 25px;
+    margin: 20px;
+}
+
+/* Add spacing below portrait to separate it visually from the text */
+.goodday-card > div:first-child .about-image {
+  display: block;
+  margin-bottom: 18px;
+}
+  .about-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+  }
+
+  .about-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .icon-wrapper {
+    background: #f0f4f8; /* Theme background for icon wrapper */
+    color: #0066cc; /* Icon color */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .material-symbols-outlines {
+    font-size: 28px;
+  }
+
+  .about-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+  }
+
+  .about-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }

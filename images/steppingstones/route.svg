@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Route" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.28 752.86">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-dasharray: 0 11.87;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #662d91;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-3 {
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-dasharray: 0 10.79;
+        stroke-width: 1.8px;
+      }
+    </style>
+  </defs>
+  <g>
+    <line class="cls-3" x1="102.16" y1="460.05" x2="102.16" y2="460.05"/>
+    <path class="cls-1" d="M95.57,469.91c-16.47,30.67,9.62,53.48,38.3,68.26,45.66,23.54,45.18,83.52-6.03,79.45,0,0-55.13,18.38-34.98,63.51"/>
+    <line class="cls-3" x1="95.53" y1="686.44" x2="95.53" y2="686.44"/>
+  </g>
+  <path class="cls-2" d="M65.98,222.35c40.71,2.92,71.34,26.64,73.4,49.72,1.6,17.93-13.45,42.17-40.79,56.97"/>
+</svg>

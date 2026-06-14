@@ -1,0 +1,248 @@
+/* Timeline container — positions the route, intro and timeline items */
+
+.popup-cv-container {
+    display: grid;
+    gap: 24px;
+    position: relative;
+}
+
+.popup-header {
+    display: grid;
+    gap: 20px;
+}
+
+.cv-summary h2 {
+    margin: 0;
+    font-size: clamp(2rem, 2.8vw, 3rem);
+    letter-spacing: 0.02em;
+        text-align: center;
+}
+
+.cv-summary p {
+    margin: 0;
+    color: rgba(255, 255, 255, .88);
+    line-height: 1.6;
+        text-align: center;
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    max-width: 70ch;
+}
+
+/* Intro section: small SVG and intro text */
+
+.intro-section {
+    display: flex;
+    justify-content: center;
+        padding: 20px 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+}
+
+.intro-svg {
+    display: flex;
+    flex-direction: column;
+        max-width: 160px;
+    width: 100%;
+    height: auto;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: timeline-appear .6s ease forwards;
+    animation-delay: 0.08s;
+
+}
+
+/* Timeline */
+
+.timeline {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.timeline-line {
+    display: none;
+}
+
+.timeline-svg {
+    width: 100px;
+    height: 100px;
+    display: block;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: timeline-appear .55s ease forwards;
+}
+
+.timeline-item {
+    position: relative;
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    margin-bottom: 32px;
+        max-width: 320px;
+        text-align: center;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-card {
+    padding-top: 0;
+        flex: none;
+}
+
+.timeline-card h3 {
+    margin: 0 0 6px;
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+        line-height: 1.2;
+        font-weight: 600;
+        text-align: center;
+}
+
+.timeline-card .role {
+    margin: 0 0 8px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    font-weight: 900;
+    line-height: 1.4;
+}
+
+.timeline-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.76);
+    line-height: 1.6;
+    font-size: clamp(0.95rem, 1vw, 1.02rem);
+}
+
+.timeline-card p:not(.role) {
+    margin-top: 6px;
+}
+
+/* Desktop: place svg on the left and text on the right for timeline items (keep Intro untouched) */
+@media (min-width: 700px) {
+    .timeline {
+        align-items: stretch;
+    }
+
+    .timeline-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 28px;
+        max-width: 760px;
+        text-align: left;
+    }
+
+    .timeline-svg {
+        width: 110px;
+        height: 110px;
+        transform: translateX(0);
+        margin-right: 12px;
+    }
+
+    .timeline-card {
+        padding-top: 0;
+        flex: 1 1 auto;
+    }
+
+    .timeline-card h3 {
+        text-align: left;
+    }
+
+    .timeline-card .role,
+    .timeline-card p {
+        text-align: left;
+    }
+}
+
+/* Section Title */
+
+.timeline-section-title {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 32px 0 24px;
+        text-align: center;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: timeline-appear .55s ease forwards;
+}
+
+/* Animation Delays */
+
+.timeline-item.delay-1 .timeline-svg { animation-delay: 0.12s; }
+.timeline-item.delay-2 .timeline-svg { animation-delay: 0.28s; }
+.timeline-item.delay-3 .timeline-svg { animation-delay: 0.44s; }
+.timeline-item.delay-4 .timeline-svg { animation-delay: 0.6s; }
+.timeline-item.delay-5 .timeline-svg { animation-delay: 0.76s; }
+.timeline-item.delay-6 .timeline-svg { animation-delay: 0.92s; }
+.timeline-item.delay-7 .timeline-svg { animation-delay: 1.08s; }
+.timeline-item.delay-8 .timeline-svg { animation-delay: 1.24s; }
+
+.timeline-section-title.delay-4 { animation-delay: 0.6s; }
+.timeline-section-title.delay-5 { animation-delay: 0.76s; }
+.timeline-section-title.delay-6 { animation-delay: 0.92s; }
+.timeline-section-title.delay-7 { animation-delay: 1.08s; }
+.timeline-section-title.delay-8 { animation-delay: 1.24s; }
+
+@keyframes timeline-appear {
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0) scale(1);
+    }
+}
+
+/* Scroll indicator (matches style used in the hear-ear app) */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 4px;
+    backdrop-filter: blur(2px);
+}
+
+.scroll-indicator::before {
+    content: '';
+    width: 4px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    animation: scroll-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-pulse {
+    0% {
+        transform: translateY(0);
+        opacity: 0.25;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+}
+
+
+

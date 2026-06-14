@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Modak&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../portfolio-return.css?v=3">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
+    </head>
+
+    <body>
+        <nav class="portfolio-return" aria-label="Portfolio-navigatie">
+            <a class="portfolio-return__link" href="../../index.html">
+                <span class="portfolio-return__icon" aria-hidden="true">&larr;</span>
+                Terug naar portfolio
+            </a>
+        </nav>
+<!-- navBar -->
+        <div class="navbar">
+            <ul>
+                <li><a href="index.html">Start</a></li>
+                <li><a href="about.html">Over ons</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                 <li>
+                    <a class="cart-link" href="in%20your%20card.html" aria-label="Open winkelwagen">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span class="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+<!-- hero image-->
+                <div class="header">
+                        <img src="IMG/Header_01.png" alt="Header van Wagashi House">
+                        <div class="header-text">
+                            <h1>Welkom bij <br> Wagashi House</h1>
+                            <h3 class="slogan">Japanse snoepwinkel & ijssalon, ophaal & bezorging mogelijk!</h3>
+                        </div>
+                </div>
+<!-- main content with items -->
+        <div class="container">
+            <div class="item">
+                <img src="IMG/strawyberry_ice.png" alt="Aardbeienijs">
+                <h2>Aardbei swirl cone</h2>
+                <p>Zoete aardbei en romig vanille softijs in een krokant hoorntje.</p>
+            </div>
+            <div class="item">
+                <img src="IMG/mochi.png" alt="Sakura Mochi">
+                <h2>Sakura Mochi</h2>
+                <p>Zachte roze rijstcakejes met een verfijnde sakura-smaak.</p>
+            </div>
+            <div class="item">
+                <img src="IMG/pink_rice.png" alt="Roze rijstcake">
+                        <h2>Roze rijstcake</h2>
+                <p>Luchtige rijstcake met een zachte, zoete vulling.</p>
+            </div>
+        <div class="item">
+                <img src="IMG/strawberry_cake.png" alt="Aardbeientaart">
+                        <h2>Aardbeientaart</h2>
+                <p>Zachte cake met aardbei, room en een lichte seizoenssmaak.</p>
+            </div>
+        <div class="item">
+                <img src="IMG/matcha_ice.png" alt="Matcha-ijs">
+                        <h2>Matcha-ijs</h2>
+                <p>Delicate groene matcha-theesmaak met een romige textuur.</p>
+            </div>
+                 <div class="item service-card">
+                <img src="IMG/service.png" alt="Service">
+                        <h2>Vragen?</h2>
+                <p>Bel of app ons, dan helpen we je binnen 5 minuten.</p>
+                 <a class="service-button" href="contact.html">Neem contact op</a>
+            </div>
+        </div>
+
+        <div class="cart-message" aria-live="polite"></div>
+
+        <script src="scriptCart.js?v=2"></script>
+    </body>
+    </html>

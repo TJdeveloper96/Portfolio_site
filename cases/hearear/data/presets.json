@@ -1,0 +1,8 @@
+{
+    "presetName": "Steaming",
+    "mainVolume": 60,
+    "speechClarity": 80,
+    "backgroundNoise": 20,
+    "windReduction": 10,
+    "trafficReduction": 15
+}

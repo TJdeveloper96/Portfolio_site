@@ -1,4 +1,4 @@
-const hero = document.getElementById("hero");               // the scene wrapper (div.scene#hero)
+const hero = document.getElementById("hero");
 const cursor = document.querySelector(".cursor");
 const outer = document.querySelector(".cursor__outer");
 const inner = document.querySelector(".cursor__inner");
@@ -7,21 +7,24 @@ const label = document.querySelector(".cursor__label");
 const hotspots = document.querySelectorAll(".hotspot");
 
 const popup = document.getElementById("popup");
-const popupTitle = document.getElementById("popup-title");
 const popupContent = document.getElementById("popup-content");
 const closeControls = document.querySelectorAll("[data-close-popup]");
 const mobileCtaButtons = document.querySelectorAll(".mobile-cta__btn");
 const mobileAboutButton = document.querySelector('.mobile-cta__btn[data-modal="about"]');
+const homeHotspot = document.querySelector('.hotspot[data-modal="home"]');
 const aboutHotspot = document.querySelector('.hotspot[data-modal="about"]');
+const workHotspot = document.querySelector('.hotspot[data-modal="work"]');
+const sceneHomeAnimation = document.querySelector("[data-scene-home-animation]");
+const sceneHomeFrame = document.querySelector("[data-scene-home-frame]");
 const sceneAboutAnimation = document.querySelector("[data-scene-about-animation]");
 const sceneAboutFrame = document.querySelector("[data-scene-about-frame]");
+let sceneHomeFrameTimer = null;
 let sceneAboutFrameTimer = null;
+let stopSceneHomeAnimation = () => {};
 let stopSceneAboutAnimation = () => {};
 let playSceneAboutAnimationOnce = () => {};
 
-// =======================
-// CURSOR STATE
-// =======================
+// Cursor state: raw pointer target, outer/inner cursor positions and previous values
 let tx = -999, ty = -999;      // raw pointer target
 let x = -999, y = -999;        // outer cursor position
 let ix = -999, iy = -999;      // inner cursor position
@@ -29,9 +32,7 @@ let px = -999, py = -999;      // previous outer position (velocity)
 
 let activeHotspot = null;
 
-// =======================
-// HELPERS
-// =======================
+// Helper utilities: small math helpers and DOM helpers used below
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
@@ -47,9 +48,33 @@ function setHotspotOffset(el, ox, oy) {
   el.style.setProperty("--hy", `${oy}px`);
 }
 
-// =======================
-// CURSOR VISIBILITY
-// =======================
+function setSceneLight(target) {
+  if (!hero) return;
+
+  if (target) {
+    hero.dataset.lightTarget = target;
+    return;
+  }
+
+  delete hero.dataset.lightTarget;
+}
+
+function clearActiveHotspot() {
+  if (activeHotspot) {
+    setHotspotOffset(activeHotspot, 0, 0);
+    activeHotspot = null;
+  }
+  if (cursor) cursor.classList.remove("is-hover");
+  if (label) label.textContent = "";
+}
+
+function getLightTargetForModal(target) {
+  if (target === "work") return "macbook";
+  if (target === "cv") return "ipad";
+  return "";
+}
+
+// Cursor visibility handlers: show/hide the custom cursor
 function showCursor(e) {
   if (e?.clientX != null) tx = e.clientX;
   if (e?.clientY != null) ty = e.clientY;
@@ -62,15 +87,15 @@ function hideCursor() {
   cursor.style.opacity = "0";
   cursor.classList.remove("is-hover", "is-down");
   if (label) label.textContent = "";
+  setSceneLight("");
 
   if (activeHotspot) setHotspotOffset(activeHotspot, 0, 0);
   activeHotspot = null;
+  stopSceneHomeAnimation();
   stopSceneAboutAnimation();
 }
 
-// =======================
-// HERO LISTENERS
-// =======================
+// Hero area listeners: pointer events for the main scene
 if (hero) {
   hero.addEventListener("pointerenter", showCursor);
   hero.addEventListener("pointerleave", hideCursor);
@@ -84,54 +109,59 @@ if (hero) {
   hero.addEventListener("pointerup", () => cursor?.classList.remove("is-down"));
 }
 
-// =======================
-// HOTSPOT HOVER + CLICK
-// =======================
+// Hotspot interactions: hover, leave and click handlers for hotspots
 hotspots.forEach((el) => {
-  el.addEventListener("mouseenter", () => {
+  el.addEventListener("pointerenter", () => {
     activeHotspot = el;
     cursor?.classList.add("is-hover");
     if (label) label.textContent = el.dataset.label || "";
+    setSceneLight(getLightTargetForModal(el.dataset.modal));
   });
 
-  el.addEventListener("mouseleave", () => {
-    cursor?.classList.remove("is-hover");
-    if (label) label.textContent = "";
-    setHotspotOffset(el, 0, 0);
-    activeHotspot = null;
-  });
+  const leaveHandler = () => {
+    // ensure hover state and offsets are cleared even if pointer events are missed
+    clearActiveHotspot();
+    setSceneLight("");
+  };
+
+  el.addEventListener("pointerleave", leaveHandler);
+  el.addEventListener("pointerout", leaveHandler);
+  el.addEventListener("pointercancel", leaveHandler);
 
   el.addEventListener("click", (event) => {
     // If you're using popups instead of page scroll:
     event.preventDefault();
-    openPopup(el.dataset.modal, el.dataset.title || el.dataset.label);
+    // clear hover state immediately so the bubble doesn't stick when the popup overlays
+    clearActiveHotspot();
+    setSceneLight(getLightTargetForModal(el.dataset.modal));
+    openPopup(el.dataset.modal);
   });
 });
 
+initSceneHomeAnimation();
 initSceneAboutAnimation();
 
-// =======================
-// POP-UP LOGIC
-// =======================
-async function openPopup(target, fallbackTitle = "") {
-  if (!popup || !popupTitle || !popupContent || !target) return;
+// Popup logic: load popup HTML, show and hide modals
+async function openPopup(target) {
+  if (!popup || !popupContent || !target) return;
+  setSceneLight(getLightTargetForModal(target));
+  stopSceneHomeAnimation();
   stopSceneAboutAnimation();
 
-  const fileTitle = fallbackTitle || target;
   const popupPath = `./popups/${target}.html`;
 
   try {
-    const response = await fetch(popupPath);
-    if (!response.ok) throw new Error(`Failed to fetch ${popupPath}`);
+    const response = await fetch(popupPath, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Kan ${popupPath} niet ophalen`);
 
     const html = await response.text();
-    popupTitle.textContent = fileTitle;
     popupContent.innerHTML = html;
+    popup.dataset.activeModal = target;
     popup.hidden = false;
     return;
   } catch (error) {
-    popupTitle.textContent = fileTitle;
-    popupContent.innerHTML = `<p>Could not load popup content from <code>${popupPath}</code>.</p>`;
+    popupContent.innerHTML = `<p>De popup-inhoud kon niet worden geladen vanuit <code>${popupPath}</code>.</p>`;
+    popup.dataset.activeModal = target;
     popup.hidden = false;
   }
 }
@@ -139,8 +169,60 @@ async function openPopup(target, fallbackTitle = "") {
 function closePopup() {
   if (!popup) return;
   popup.hidden = true;
+  delete popup.dataset.activeModal;
+  setSceneLight("");
   popupContent?.replaceChildren();
-  if (popupTitle) popupTitle.textContent = "";
+  // clear any stuck hotspot hover state
+  clearActiveHotspot();
+}
+
+function initSceneHomeAnimation() {
+  if (!homeHotspot || !sceneHomeAnimation || !sceneHomeFrame) return;
+
+  const frameMs = Number(sceneHomeAnimation.dataset.frameMs) || 180;
+  const hoverFrames = ["./images/koffie 1.webp", "./images/koffie 2.webp"];
+  const totalFrames = hoverFrames.length + 1;
+
+  hoverFrames.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  let index = 0;
+
+  function renderFrame() {
+    if (index === 0) {
+      sceneHomeFrame.style.opacity = "0";
+      return;
+    }
+
+    sceneHomeFrame.src = hoverFrames[index - 1];
+    sceneHomeFrame.style.opacity = "1";
+  }
+
+  function stopHomeAnimation() {
+    if (sceneHomeFrameTimer) {
+      clearInterval(sceneHomeFrameTimer);
+      sceneHomeFrameTimer = null;
+    }
+    index = 0;
+    renderFrame();
+  }
+
+  function startHomeAnimation() {
+    if (sceneHomeFrameTimer) return;
+    index = 1;
+    renderFrame();
+    sceneHomeFrameTimer = setInterval(() => {
+      index = (index + 1) % totalFrames;
+      renderFrame();
+    }, frameMs);
+  }
+
+  stopSceneHomeAnimation = stopHomeAnimation;
+  stopHomeAnimation();
+  homeHotspot.addEventListener("pointerenter", startHomeAnimation);
+  homeHotspot.addEventListener("pointerleave", stopHomeAnimation);
 }
 
 function initSceneAboutAnimation() {
@@ -190,8 +272,8 @@ function initSceneAboutAnimation() {
   stopSceneAboutAnimation = stopHeaderAnimation;
   playSceneAboutAnimationOnce = startHeaderAnimationOnceMobile;
   stopHeaderAnimation();
-  aboutHotspot.addEventListener("mouseenter", startHeaderAnimation);
-  aboutHotspot.addEventListener("mouseleave", stopHeaderAnimation);
+  aboutHotspot.addEventListener("pointerenter", startHeaderAnimation);
+  aboutHotspot.addEventListener("pointerleave", stopHeaderAnimation);
 }
 
 // Mobile has no hover: play animation when "About" is tapped.
@@ -204,18 +286,14 @@ if (mobileAboutButton && window.matchMedia("(pointer: coarse)").matches) {
   });
 }
 
-// =======================
-// MOBILE CTA -> POP-UP
-// =======================
+// Mobile CTA buttons: open corresponding popup on tap/click
 mobileCtaButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    openPopup(button.dataset.modal, button.dataset.title || button.textContent?.trim());
+    openPopup(button.dataset.modal);
   });
 });
 
-// =======================
-// POP-UP CLOSE CONTROLS
-// =======================
+// Popup close controls: backdrop, close button and Escape key handling
 closeControls.forEach((el) => {
   el.addEventListener("click", closePopup);
 });
@@ -224,9 +302,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closePopup();
 });
 
-// =======================
-// ANIMATION LOOP (MAGNETIC + SQUISH)
-// =======================
+// Main animation loop: magnetic cursor behavior, squish/rotation and hotspot magnetism
 (function tick() {
   // Magnetic target defaults to raw pointer
   let mx = tx, my = ty;
@@ -281,3 +357,35 @@ document.addEventListener("keydown", (event) => {
 
   requestAnimationFrame(tick);
 })();
+
+// loadscreen function
+
+const MIN_LOADER_MS = 2000;
+const loaderStartTime = performance.now();
+const loaderAnimationContainer = document.getElementById("loader-lottie");
+
+if (loaderAnimationContainer && window.lottie) {
+  const loaderAnimation = window.lottie.loadAnimation({
+    container: loaderAnimationContainer,
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    path: "./Animaties/tea-cup.json",
+  });
+  loaderAnimation.setSpeed(2.0);
+}
+
+window.addEventListener("load", function() {
+  const loadingScreen = document.getElementById("loading-screen");
+  if (!loadingScreen) return;
+  const elapsed = performance.now() - loaderStartTime;
+  const waitMs = Math.max(0, MIN_LOADER_MS - elapsed);
+
+  setTimeout(() => {
+    loadingScreen.style.opacity = "0";
+    // Wait for CSS fade-out transition before removing from layout.
+    setTimeout(() => {
+    loadingScreen.style.display = "none";
+    }, 500);
+  }, waitMs);
+});

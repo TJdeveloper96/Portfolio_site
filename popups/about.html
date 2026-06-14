@@ -1,1 +1,114 @@
-<p>Short intro about who I am and what I do.</p>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<section class="about-section">
+  <div class="about-intro">
+    <h1>Hallo, mijn naam is Tessa Jonkers</h1>
+    <p class="subtitle">Designer die code toevoegt aan haar gereedschapskist</p>
+  </div>
+
+  <div class="about-cards">
+    <!-- Creative foundation -->
+    <div class="about-card">
+      <span class="material-symbols-outlined card-icon">design_services</span>
+      <h3>Mijn Creatieve Fundament</h3>
+      <p>Mijn achtergrond ligt in grafisch ontwerp, motion design, packaging en e-commerce. Voor verschillende merken werkte ik aan uiteenlopende projecten: van tastbare verpakkingen en campagnes tot complete digitale content.</p>
+    </div>
+
+    <!-- Digital connection -->
+    <div class="about-card">
+      <span class="material-symbols-outlined card-icon">table_eye</span>
+      <h3>De Digitale Connectie</h3>
+      <p>Tijdens dit werk groeide mijn fascinatie voor de online wereld. Niet alleen voor de visuals, maar juist voor de werking erachter. Om de eindgebruiker écht te begrijpen, heb ik me daarnaast verdiept in online marketing. Hoe converteren middelen en hoe interacteert de gebruiker ermee?</p>
+    </div>
+
+    <!-- From idea to logic -->
+    <div class="about-card">
+      <span class="material-symbols-outlined card-icon">draw_abstract</span>
+      <h3>Van Idee naar Logica</h3>
+      <p>Als designer leer je continu nieuwe software en workflows. Die nieuwsgierigheid dreef me verder dan het canvas. Ik wilde weten hoe systemen slimmer, efficiënter en gebruiksvriendelijker worden gebouwd. Daar werd de vonk voor front-end development overgedragen.</p>
+    </div>
+
+    <!-- The logical next step -->
+    <div class="about-card">
+      <span class="material-symbols-outlined card-icon">line_end_circle</span>
+      <h3>De Logische Volgende Stap</h3>
+      <p>In development vind ik de ultieme mix van creativiteit, techniek en probleemoplossing. Ik bedenk ideeën niet alleen, ik bouw ze nu ook. Dankzij mijn brede achtergrond switch ik moeiteloos tussen de wensen van designers, marketeers en code. Een carrièreswitch? Zeker niet. Het is het logische vervolg.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    font-family: "Lexend Deca", sans-serif;
+    color: #e8edff;
+  }
+
+  .about-intro {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .about-intro h1 {
+    margin: 0 0 12px;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: #e8edff;
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    color: rgba(232, 237, 255, 0.8);
+    letter-spacing: 0.05em;
+  }
+
+  .about-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: min(100%, 780px);
+    margin: 0 auto;
+  }
+
+  .about-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 28px;
+    border-radius: 16px;
+    background: radial-gradient(circle at 40% 40%, #c578ff8c 45%, rgba(222, 199, 231, 0.827) 100%);
+    color: #e8edff;
+    text-align: center;
+  }
+
+  .card-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: #e8edff;
+    font-weight: 500;
+  }
+
+  .about-card h3 {
+    margin: 0 0 12px;
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    font-weight: 700;
+    color: #e8edff;
+  }
+
+  .about-card p {
+    margin: 0;
+    font-size: clamp(0.9rem, 1vw, 1rem);
+    line-height: 1.6;
+    color: rgba(232, 237, 255, 0.9);
+    max-width: 60ch;
+  }
+
+  @media (max-width: 600px) {
+    .about-card {
+      padding: 24px 18px;
+    }
+
+    .card-icon {
+      font-size: 40px;
+    }
+  }
+</style>
